@@ -19,11 +19,10 @@ class CreateProductsTable extends Migration
             $table->string('plu', 255);
             $table->string('name', 65535);
             $table->string('size', 100);
-            $table->integer('size_sort_id');
+            $table->string('size_sort', 50);
             $table->timestamps();
 
             // Add indexes
-            $table->primary('id');
             $table->unique('sku');
             $table->index('plu');
         });

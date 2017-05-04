@@ -21,8 +21,24 @@ class ImportController extends BaseController
 
     public function create(Request $request)
     {
+        /** @var \Illuminate\Database\Connection $db */
+        $db = app('db')->connection()
+        ;
         $reader = $this->getReaderFromRequest($request);
+        $reader->each(function ($row) use ($db) {
+            $insert = [
+                'sku' => trim($row[0]),
+                'plu' => trim($row[1]),
+                'name' => trim($row[2]),
+                'size' => trim($row[3]),
+                'size_sort' => trim($row[4]),
+            ];
 
+            // TODO: Validate insert, skip if SKU exists
+
+            $db->table('products')
+                ->insert($insert);
+        });
     }
 
     public function getReaderFromRequest(Request $request)
