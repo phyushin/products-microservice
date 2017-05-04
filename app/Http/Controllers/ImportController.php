@@ -26,8 +26,9 @@ class ImportController extends BaseController
         $reader = $this->getReaderFromRequest($request);
         $fails = [];
         $skipped = [];
+        $imported = 0;
 
-        $reader->each(function ($row) use ($product, &$fails, &$skipped) {
+        $reader->each(function ($row) use ($product, &$fails, &$skipped, &$imported) {
             $insert = [
                 'sku' => trim($row[0]),
                 'plu' => trim($row[1]),
@@ -67,6 +68,7 @@ class ImportController extends BaseController
 
             try {
                 $product->insert($insert);
+                $imported++;
             } catch (QueryException $e) {
                 $fails[] = [
                     'row' => $row,
@@ -77,6 +79,7 @@ class ImportController extends BaseController
         });
 
         return response([
+                'total_imported' => $imported,
                 'failed_total' => count($fails),
                 'skipped_total' => count($skipped),
                 'failed'=>$fails,
