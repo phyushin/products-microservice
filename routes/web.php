@@ -15,8 +15,15 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-$v1 = function() use ($app) {
-    $app->get('product', '');
+$notImplemented = function() use ($app) {
+    return response('Not Implemented', 501);
+};
+
+$v1 = function() use ($app, $notImplemented) {
+    $app->get('product', 'ProductController@index');
+
+    $app->get('import', $notImplemented);
+    $app->post('import', 'ImportController@create');
 };
 
 $app->group(['prefix' => 'latest'], $v1);

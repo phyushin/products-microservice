@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidFileException;
+use App\Product;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use League\Csv\AbstractCsv;
@@ -19,13 +21,13 @@ class ImportController extends BaseController
     /** @var  AbstractCsv $csvReader */
     protected $csvReader;
 
-    public function create(Request $request)
+    public function create(Request $request, Product $product)
     {
-        /** @var \Illuminate\Database\Connection $db */
-        $db = app('db')->connection()
-        ;
         $reader = $this->getReaderFromRequest($request);
-        $reader->each(function ($row) use ($db) {
+        $fails = [];
+        $skipped = [];
+
+        $reader->each(function ($row) use ($product, &$fails, &$skipped) {
             $insert = [
                 'sku' => trim($row[0]),
                 'plu' => trim($row[1]),
@@ -34,11 +36,54 @@ class ImportController extends BaseController
                 'size_sort' => trim($row[4]),
             ];
 
-            // TODO: Validate insert, skip if SKU exists
+            $validSizeSorts = $product->validSizeSorts();
+            if (!array_key_exists($insert['size_sort'], $validSizeSorts)) {
+                $fails[] = [
+                    'row' => $row,
+                    'error' => 'Invalid sizeSort',
+                ];
+                return true; // Log and skip
+            }
 
-            $db->table('products')
-                ->insert($insert);
+            if (!in_array(
+                $insert['size'],
+                $validSizeSorts[$insert['size_sort']]
+            )) {
+                $fails[] = [
+                    'row' => $row,
+                    'error' => 'Invalid size of type ' . $insert['size_sort'],
+                ];
+                return true;
+            }
+
+            $skuExists = $product
+                ->where('sku', '=', $insert['sku'])
+                ->count('sku') > 0 ? true : false;
+
+            if ($skuExists) {
+                $skipped[] = $row;
+                return true;
+            }
+
+            try {
+                $product->insert($insert);
+            } catch (QueryException $e) {
+                $fails[] = [
+                    'row' => $row,
+                    'error' => $e->getMessage()
+                ];
+            }
+            return true;
         });
+
+        return response([
+                'failed_total' => count($fails),
+                'skipped_total' => count($skipped),
+                'failed'=>$fails,
+                'skipped' => $skipped,
+                ],
+            201,
+            ['Content-Type' => 'application/json']);
     }
 
     public function getReaderFromRequest(Request $request)
