@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Database\Query\Builder;
@@ -18,22 +19,43 @@ use League\Fractal\Serializer\DataArraySerializer;
 
 class ProductController extends BaseController
 {
-    /** @var  \Illuminate\Database\Connection $db */
-    protected $db;
+    protected $product;
 
     /** @var  Manager $fractalManager */
     protected $fractalManager;
 
-    public function __construct(Manager $manager, DataArraySerializer $arraySerializer)
+    public function __construct(Manager $manager, DataArraySerializer $arraySerializer, Product $product)
     {
-        $this->db = app('db')->connection();
+        $this->product = $product;
         $this->fractalManager = $manager;
         $this->fractalManager->setSerializer($arraySerializer);
     }
 
     public function index(Request $request)
     {
-        // Return all products
+        $currentCursor = (int)base64_decode($request->input('cursor'));
+        $previousCursor = (int)base64_decode($request->input('previous'));
+        $limit = (int)$request->input('limit', 500);
+
+        if ($currentCursor) {
+            /** @var Builder $query */
+            $query = $this->product
+                ->skip($currentCursor)
+                ->take($limit)
+                ->get();
+        } else {
+            /** @var Builder $query */
+            $query = $this->product
+                ->take($limit)->get();
+        }
+
+        $nextCursor = count($query) < $limit ? null : urlencode(base64_encode(($currentCursor + $limit)));
+        $cursor = new Cursor(
+            urlencode(base64_encode($currentCursor)),
+            urlencode(base64_encode($previousCursor)),
+            $nextCursor,
+            count($query)
+        );
     }
 
     public function show(Request $request, $productPLU)
