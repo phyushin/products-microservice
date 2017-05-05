@@ -21,6 +21,7 @@ $notImplemented = function() use ($app) {
 
 $v1 = function() use ($app, $notImplemented) {
     $app->get('product', 'ProductController@index');
+    $app->get('product/{productPLU}', 'ProductController@show');
 
     $app->get('import', $notImplemented);
     $app->post('import', 'ImportController@create');

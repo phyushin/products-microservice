@@ -15,6 +15,11 @@ class Product extends Model
         'sku', 'plu', 'name', 'size', 'size_sort'
     ];
 
+    public function uniqueProducts()
+    {
+        return $this->groupBy('plu');
+    }
+    
     public function setSizeSortAttribute($value)
     {
         
