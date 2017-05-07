@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Product extends Model
 {
@@ -23,6 +24,19 @@ class Product extends Model
     public function setSizeSortAttribute($value)
     {
         
+    }
+
+    public function sortSizes($product)
+    {
+        $validSizeSorts = $this->validSizeSorts();
+        $collection = new Collection($product['sizes']);
+        $sorted = $collection->sortBy(function ($size, $key) use ($validSizeSorts, $product) {
+            return array_search(
+                $size['size'],
+                $validSizeSorts[$product['size_sort']]
+            );
+        });
+        return $sorted;
     }
 
     public function validSizeSorts()

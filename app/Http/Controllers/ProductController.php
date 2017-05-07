@@ -89,7 +89,7 @@ class ProductController extends BaseController
             ];
         }
 
-        $product['sizes'] = $this->sortSizes($product);
+        $product['sizes'] = $this->product->sortSizes($product);
 
         $this->fractalManager->setSerializer(new ArraySerializer());
         $this->fractalManager->parseIncludes('sizes');
@@ -97,23 +97,4 @@ class ProductController extends BaseController
         $resource = new Item($product, new ProductTransformer());
         return $this->fractalManager->createData($resource)->toArray();
     }
-
-    protected function sortSizes($product)
-    {
-        $validSizeSorts = $this->product->validSizeSorts();
-        $collection = new \Illuminate\Support\Collection($product['sizes']);
-        $sorted = $collection->sortBy(function ($size, $key) use ($validSizeSorts, $product) {
-            return array_search(
-                $size['size'],
-                $validSizeSorts[$product['size_sort']]
-            );
-        });
-        return $sorted;
-    }
-
-    protected function productQuery()
-    {
-
-    }
-
 }
