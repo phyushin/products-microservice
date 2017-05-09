@@ -1,21 +1,8 @@
-# Lumen PHP Framework
+# Products Microservice
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+[![Build Status](https://scrutinizer-ci.com/b/adamprescott/products-microservice/badges/build.png?b=master&s=fe5929c21b55f4131ea1263b1c1dd5ccf1bd96f9)](https://scrutinizer-ci.com/b/adamprescott/products-microservice/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/b/adamprescott/products-microservice/badges/coverage.png?b=master&s=e23c10bb825c8157295616f4195a8ea5700770f7)](https://scrutinizer-ci.com/b/adamprescott/products-microservice/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/b/adamprescott/products-microservice/badges/quality-score.png?b=master&s=05bb8c183a14e97dfae208e63f55fcd7e3a3bb2d)](https://scrutinizer-ci.com/b/adamprescott/products-microservice/?branch=master)
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## How to run
 
-## Official Documentation
-
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
