@@ -91,22 +91,10 @@ class ImportController extends BaseController
 
     public function getReaderFromRequest(Request $request)
     {
-        if($request->hasFile('csv')) {
-            if ($request->file('csv')->isValid()) {
-                return Reader::createFromFileObject(
-                    $request->file('csv')->openFile()
-                );
-            }
-            throw new InvalidFileException('Uploaded CSV is not a valid file request');
-        }
+        // TODO: Handle file from form upload in addition to request content
 
         return Reader::createFromStream(
             $request->getContent(true)
         );
-    }
-
-    private function validateRequest($request)
-    {
-
     }
 }
