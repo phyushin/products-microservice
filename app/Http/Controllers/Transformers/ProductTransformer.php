@@ -13,23 +13,17 @@ use League\Fractal\TransformerAbstract;
 
 class ProductTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['sizes'];
-
     public function transform($product)
     {
-        return [
+        $return = [
             'PLU'=>$product['plu'],
             'name'=>$product['name'],
         ];
-    }
 
-    public function includeSizes($product)
-    {
-        return $this->collection($product['sizes'], function ($size) {
-            return [
-                'SKU' => $size['SKU'],
-                'size' => $size['size'],
-            ];
-        });
+        if (isset($product['sizes'])) {
+            $return['sizes'] = $product['sizes'];
+        }
+
+        return $return;
     }
 }

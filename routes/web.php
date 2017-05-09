@@ -16,7 +16,7 @@ $app->get('/', function () use ($app) {
 });
 
 $notImplemented = function() use ($app) {
-    return response('Not Implemented', 501);
+    throw new \Symfony\Component\HttpKernel\Exception\HttpException(501, 'Not Implemented');
 };
 
 $v1 = function() use ($app, $notImplemented) {

@@ -1,0 +1,27 @@
+100, AAA, "Random product AAA.", "28", SHOE_EU
+101, AAA, "Random product AAA.", "22", SHOE_EU
+102, AAA, "Random product AAA.", "38", SHOE_EU
+103, AAA, "Random product AAA.", "36", SHOE_EU
+104, AAA, "Random product AAA.", "32", SHOE_EU
+105, AAA, "Random product AAA.", "25", SHOE_EU
+106, AAB, "Random product AAB.", "20", SHOE_EU
+107, AAB, "Random product AAB.", "40", SHOE_EU
+108, AAB, "Random product AAB.", "36", SHOE_EU
+109, AAB, "Random product AAB.", "32", SHOE_EU
+110, AAB, "Random product AAB.", "25", SHOE_EU
+111, AAB, "Random product AAB.", "35", SHOE_EU
+112, AAC, "Random product AAC.", "XXL", CLOTHING_SHORT
+113, AAC, "Random product AAC.", "XXXXL", CLOTHING_SHORT
+114, AAC, "Random product AAC.", "XS", CLOTHING_SHORT
+115, AAC, "Random product AAC.", "L", CLOTHING_SHORT
+116, AAC, "Random product AAC.", "M", CLOTHING_SHORT
+117, AAC, "Random product AAC.", "XXXL", CLOTHING_SHORT
+125, AAE, "Random product AAE.", "11 (Child)", SHOE_UK
+126, AAE, "Random product AAE.", "1 ", SHOE_UK
+127, AAE, "Random product AAE.", "9 (Child)", SHOE_UK
+128, AAE, "Random product AAE.", "4.5 (Child)", SHOE_UK
+129, AAF, "Random product AAF.", "XL", CLOTHING_SHORT
+130, AAF, "Random product AAF.", "S", CLOTHING_SHORT
+131, AAF, "Random product AAF.", "M", CLOTHING_SHORT
+132, AAF, "Random product AAF.", "L", CLOTHING_SHORT
+133, AAF, "Random product AAF.", "XXL", CLOTHING_SHORT

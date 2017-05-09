@@ -19,6 +19,7 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\ArraySerializer;
 use League\Fractal\Serializer\DataArraySerializer;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProductController extends BaseController
 {
@@ -77,7 +78,7 @@ class ProductController extends BaseController
         $aggProduct = $productQuery->groupBy('plu')->toArray();
 
         if (count($aggProduct) < 1) {
-            return response()->json(['error' => 'Product PLU not found'], 404);
+            throw new NotFoundHttpException('Product PLU not found');
         }
 
         $product = $aggProduct[$productPLU][0];
@@ -92,7 +93,6 @@ class ProductController extends BaseController
         $product['sizes'] = $this->product->sortSizes($product);
 
         $this->fractalManager->setSerializer(new ArraySerializer());
-        $this->fractalManager->parseIncludes('sizes');
 
         $resource = new Item($product, new ProductTransformer());
         return $this->fractalManager->createData($resource)->toArray();

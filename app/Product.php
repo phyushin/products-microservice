@@ -20,11 +20,6 @@ class Product extends Model
     {
         return $this->groupBy('plu');
     }
-    
-    public function setSizeSortAttribute($value)
-    {
-        
-    }
 
     public function sortSizes($product)
     {
@@ -36,7 +31,7 @@ class Product extends Model
                 $validSizeSorts[$product['size_sort']]
             );
         });
-        return $sorted;
+        return $sorted->values();
     }
 
     public function validSizeSorts()
