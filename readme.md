@@ -6,9 +6,9 @@
 
 ## How to run
 
-There are multiple way you can run this project for local development.
+There are multiple ways you can run this project for local development.
 
-First make sure to copy the contents of .env.example to .env before any of these steps. And Create a file under the `database` folder called `database.sqlite` if it does not already exist.
+First make sure to copy the contents of `.env.example` to `.env` before any of these steps. And Create a file under the `database` folder called `database.sqlite` if it does not already exist.
 
 ### PHP Built-in Server
 If you plan on using PHP's built-in web server to test this do the following:
