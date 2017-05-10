@@ -171,3 +171,28 @@ Each result is trimmed for whitespace
   ]
 }
 ```
+
+## Elasticbeanstalk Notes
+
+A `.env` file isn't required for Elasticbeanstalk setups since we set the environment vars in `.ebextensions/01-commands.config`.
+
+Ideally, the `.ebextensions` folder should be pulled in as a part of a build/deployment/pipeline process, 
+not kept in the same repo as the code. This separates credentials from code.
+
+The format of .ebextensions configs are very similar to CloudFormation, since CloudFormation is used behind Elasticbeanstalk.
+ElasticBeanstalk configs are initially opinionated but also very flexible.
+
+### Commands used to start up dev box
+* `eb init -r eu-west-1 -k amz_adam -p php-5.6 Product-Microservice` - The `-k` option is the ssh key
+you intend to use, change this to one that exists in your AWS account
+* `eb create -s -i t2.micro product-dev` - The `-s` options just single machine without a load-balancer,
+handy/cheaper for dev/qa environments
+
+Further deployments can be done using `eb deploy`, this handles bringing instances in/out of service
+and deploying code to those instances.
+
+### .ebextensions
+* `01-commands.config` - contains the environment configs and commands to deploy the application.
+* `02-applicationLogs.config` - allows Laravel/Lumen application logs to be sync'd and rotated to S3.
+It's also possible to enable CloudWatch Logs on this environment and have it watch these logs for application
+specific errors.
