@@ -1,8 +1,8 @@
 # Products Microservice
 
 [![Build Status](https://scrutinizer-ci.com/g/adamprescott/products-microservice/badges/build.png?b=master)](https://scrutinizer-ci.com/g/adamprescott/products-microservice/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/adamprescott/products-microservice/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/adamprescott/products-microservice/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/adamprescott/products-microservice/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/adamprescott/products-microservice/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/adamprescott/products-microservice/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/adamprescott/products-microservice/?branch=master)
 
 ## How to run
 
